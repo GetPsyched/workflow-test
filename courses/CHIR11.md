@@ -23,7 +23,7 @@ for:
       credits: [2, 0, 2, 3]
     - branch: PI
       semester: 1
-      credits: [2, 0, 2, 3]
+      credits: [2, 0, 2, 1]
 
 prereq: []
 type: EPR
