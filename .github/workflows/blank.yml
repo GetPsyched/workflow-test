@@ -22,10 +22,10 @@ jobs:
         run: |
           if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
             git diff --name-only HEAD^ HEAD | while read filename; do
-            echo "Changed file: $filename"
+              echo "Changed file: $filename"
           done
           else
             git diff --name-only HEAD | while read filename; do
-            echo "Changed file: $filename"
+              echo "Changed file: $filename"
           done
           fi
