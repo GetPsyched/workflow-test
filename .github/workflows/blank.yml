@@ -12,4 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: technote-space/get-diff-action@v6
+        with:
+          FORMAT: json
       - run: echo '${{ env.GIT_DIFF }}' | jq .
