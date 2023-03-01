@@ -20,7 +20,8 @@ jobs:
 
       - name: Print list of changed files
         run: |
-          git diff --name-only HEAD^ HEAD | while read filename; do
-            echo "Changed file: $filename"
-          done
-
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            git diff --name-only HEAD^ HEAD
+          else
+            git diff --name-only HEAD
+          fi
