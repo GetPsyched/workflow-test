@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Debug
+        run: |
+          echo "GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH"
+          cat $GITHUB_EVENT_PATH
+
       - name: Print File Contents
         run: |
           changed_files=$(jq -r '.head_commit.added, .head_commit.modified | .[]' $GITHUB_EVENT_PATH | grep -E '\.md$')
