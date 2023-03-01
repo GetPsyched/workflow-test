@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Debug
         run: |
@@ -21,14 +21,16 @@ jobs:
       - name: Print list of changed files
         run: |
           if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            echo "Previous commit exists"
             files=$(git diff --name-only HEAD^ HEAD)
+            echo "Changed files:"
+            echo "$files"
             if [[ -z "$files" ]]; then
               echo "No files changed"
             else
-              echo "Changed files:"
-              echo "$files"
+              echo "Files changed"
             fi
           else
-            echo "Changed files:"
+            echo "Previous commit does not exist"
             git diff --name-only HEAD | echo
           fi
