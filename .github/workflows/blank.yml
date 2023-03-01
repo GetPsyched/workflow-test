@@ -15,11 +15,7 @@ jobs:
         with:
           FORMAT: json
       - name: Send PUT call
-        uses: peter-evans/http-request@v1.2.0
-        # env:
+        env:
           # JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        with:
-          method: PUT
-          url: 'https://api.nksss.live/courses'
-          headers: '{"Content-Type": "application/json"}'
-          body: $('${{ env.GIT_DIFF }}' | jq .)
+          API_URL: "https://api.nksss.live/courses"
+        run: curl -X PUT -d "$('${{ env.GIT_DIFF }}' | jq .)" "$(API_URL)" -v
