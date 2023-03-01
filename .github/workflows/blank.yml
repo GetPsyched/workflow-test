@@ -19,7 +19,13 @@ jobs:
 
       - name: Print list of changed files
         run: |
-          files=$(git diff --name-only HEAD)
+          if [ -z "${GITHUB_BASE_REF}" ]; then
+            # This is the first commit
+            files=$(git diff --name-only $(git hash-object -t tree /dev/null) HEAD)
+          else
+            # This is a subsequent commit
+            files=$(git diff --name-only ${GITHUB_BASE_REF}...HEAD)
+          fi
           echo "Changed files:"
           echo "$files"
           if [[ -z "$files" ]]; then
