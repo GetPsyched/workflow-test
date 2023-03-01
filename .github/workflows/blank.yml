@@ -18,4 +18,4 @@ jobs:
         env:
           # JWT_SECRET: ${{ secrets.JWT_SECRET }}
           API_URL: "https://api.nksss.live/courses"
-        run: curl -X PUT -d "$('${{ env.GIT_DIFF }}' | jq .)" "$(API_URL)" -v
+        run: curl -X PUT -d "$('${{ env.GIT_DIFF }}' | jq .)" "$API_URL" -v
