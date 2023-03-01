@@ -5,7 +5,6 @@ on:
     branches: [ "main" ]
     paths: [ "courses/**" ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,4 +14,12 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           FORMAT: json
-      - run: echo '${{ env.GIT_DIFF }}' | jq .
+      - name: Send PUT call
+        uses: peter-evans/http-request@v1.2.0
+        # env:
+          # JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        with:
+          method: PUT
+          url: 'https://api.nksss.live/courses'
+          headers: '{"Content-Type": "application/json"}'
+          body: $('${{ env.GIT_DIFF }}' | jq .)
