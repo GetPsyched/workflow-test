@@ -21,7 +21,14 @@ jobs:
       - name: Print list of changed files
         run: |
           if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
-            git diff --name-only HEAD^ HEAD | echo
+            files=$(git diff --name-only HEAD^ HEAD)
+            if [[ -z "$files" ]]; then
+              echo "No files changed"
+            else
+              echo "Changed files:"
+              echo "$files"
+            fi
           else
+            echo "Changed files:"
             git diff --name-only HEAD | echo
           fi
