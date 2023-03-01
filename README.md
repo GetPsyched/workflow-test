@@ -1,4 +1,3 @@
 # workflow-test
 test
-remove
-add now
+omg it works
