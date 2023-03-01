@@ -20,17 +20,11 @@ jobs:
 
       - name: Print list of changed files
         run: |
-          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
-            echo "Previous commit exists"
-            files=$(git diff --name-only HEAD^ HEAD)
-            echo "Changed files:"
-            echo "$files"
-            if [[ -z "$files" ]]; then
-              echo "No files changed"
-            else
-              echo "Files changed"
-            fi
+          files=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changed files:"
+          echo "$files"
+          if [[ -z "$files" ]]; then
+            echo "No files changed"
           else
-            echo "Previous commit does not exist"
-            git diff --name-only HEAD | echo
+            echo "Files changed"
           fi
