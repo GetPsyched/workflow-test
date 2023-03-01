@@ -21,11 +21,7 @@ jobs:
       - name: Print list of changed files
         run: |
           if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
-            git diff --name-only HEAD^ HEAD | while read filename; do
-              echo "Changed file: $filename"
-          done
+            git diff --name-only HEAD^ HEAD | echo
           else
-            git diff --name-only HEAD | while read filename; do
-              echo "Changed file: $filename"
-          done
+            git diff --name-only HEAD | echo
           fi
