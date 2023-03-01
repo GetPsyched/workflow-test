@@ -22,7 +22,7 @@ for:
       semester: 1
       credits: [2, 0, 2, 3]
     - branch: PI
-      semester: 1
+      semester: 2
       credits: [2, 0, 2, 3]
 
 prereq: []
