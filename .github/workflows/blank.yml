@@ -1,0 +1,26 @@
+name: Update edited files in the database
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "courses/**" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Print File Contents
+        run: |
+          changed_files=$(jq -r '.head_commit.added, .head_commit.modified | .[]' $GITHUB_EVENT_PATH | grep -E '\.md$')
+          if [ -n "$changed_files" ]; then
+            for file in $changed_files; do
+              echo "Printing contents of $file"
+              cat "$file"
+            done
+          else
+            echo "No md files were added or modified in this commit."
+          fi
