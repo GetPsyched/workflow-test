@@ -18,14 +18,16 @@ jobs:
           echo "GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH"
           cat $GITHUB_EVENT_PATH
 
-      - name: Print File Contents
+      - name: Fetch commit details
         run: |
-          changed_files=$(jq -r '.head_commit.added, .head_commit.modified | .[]' $GITHUB_EVENT_PATH | grep -E '\.md$')
-          if [ -n "$changed_files" ]; then
-            for file in $changed_files; do
-              echo "Printing contents of $file"
-              cat "$file"
-            done
-          else
-            echo "No md files were added or modified in this commit."
-          fi
+          commit_url=$(jq -r '.head_commit.url' $GITHUB_EVENT_PATH)
+          commit_details=$(curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                       -H "Accept: application/vnd.github.v3+json" \
+                       "$commit_url")
+          echo "$commit_details" > commit_details.json
+
+      - name: Extract list of changed files
+        run: |
+          jq -r '.files[].filename' commit_details.json | while read filename; do
+            echo "Changed file: $filename"
+          done
