@@ -17,13 +17,10 @@ jobs:
           echo "GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH"
           cat $GITHUB_EVENT_PATH
 
-      - name: Print list of changed files
-        run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "Changed files:"
-          echo "$files"
-          if [[ -z "$files" ]]; then
-            echo "No files changed"
-          else
-            echo "Files changed"
-          fi
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            +(src|__tests__)/**/*.ts
+            !src/exclude.ts
+          FORMAT: json
+      - run: echo '${{ env.GIT_DIFF }}' | jq .
