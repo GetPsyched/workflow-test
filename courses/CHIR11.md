@@ -2,7 +2,7 @@
 code: CHIR11
 title: Energy and Environmental Science
 
-for:
+specifics:
     - branch: CE
       semester: 1
       credits: [2, 0, 0, 2]
@@ -22,11 +22,11 @@ for:
       semester: 1
       credits: [2, 0, 2, 3]
     - branch: PI
-      semester: 2
+      semester: 1
       credits: [2, 0, 2, 3]
 
 prereq: []
-type: EPR
+kind: EPR
 ---
 
 # Objectives
