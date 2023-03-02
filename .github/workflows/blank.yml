@@ -18,4 +18,9 @@ jobs:
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           API_URL: "https://api.nksss.live/courses"
-        run: curl -H "Authorization: Bearer $JWT_SECRET" -H "Content-Type: application/json" -d '["courses/CHIR11.md"]' "$API_URL" -v
+        run: |
+          curl -H "Authorization: Bearer $JWT_SECRET" \
+          -H "Content-Type: application/json" \
+          -d '["courses/CHIR11.md"]' \
+          "$API_URL" \
+          -v
